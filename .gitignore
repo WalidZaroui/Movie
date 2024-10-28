@@ -1,0 +1,30 @@
+# Ignore virtual environment
+backend/env/
+backend/venv/
+
+# Ignore VSCode settings
+backend/.vscode/
+frontend/.vscode/
+
+# Ignore Python cache files
+backend/__pycache__/
+backend/*.pyc
+
+# Ignore Django database
+backend/db.sqlite3
+
+# Ignore environment configuration files
+*.env
+
+# Node modules (for frontend if using Node.js/React)
+frontend/node_modules/
+
+# Ignore build files and cache
+frontend/build/
+frontend/.cache/
+
+# MacOS system files
+.DS_Store
+
+# Ignore any log files
+*.log

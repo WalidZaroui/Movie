@@ -1,0 +1,5 @@
+# Ignore virtual environment folder
+env/ export-ignore
+
+# Enforce LF line endings for all code files
+*.py text eol=lf
