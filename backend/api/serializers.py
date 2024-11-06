@@ -8,7 +8,7 @@ from api.models import Genre, Movie, History, Wishlist, Favorite
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+        fields = ['first_name', 'last_name','username','email','password']
         extra_kwargs = {"password": {"write_only": True}}
     
     def create(self, validated_data):
