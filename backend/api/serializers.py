@@ -25,7 +25,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'synopsis', 'director', 'rating', 'release_year', 'genres']
+        fields = ['id', 'title', 'synopsis', 'director', 'rating', 'release_year', 'genres','image']
 
 class HistorySerializer(serializers.ModelSerializer):
     movie = MovieSerializer()
