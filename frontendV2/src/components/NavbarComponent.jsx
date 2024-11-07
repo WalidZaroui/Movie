@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
+import { useNavigate } from "react-router-dom";
+
 const pages = [
   "Home",
   "Movies",
@@ -40,6 +42,13 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const navigate = useNavigate();
+
+  const handleNavigation = (page) => {
+    // You can modify the URL based on the page (e.g., `/home`, `/movies`)
+    navigate(`/${page.toLowerCase()}`);
+    handleCloseNavMenu(); // Close the menu after navigation
   };
 
   return (
@@ -142,7 +151,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleNavigation(page)}
                 className=" hover:text-red-500 my-2"
                 sx={{ my: 2, color: "white", display: "block" }}
               >

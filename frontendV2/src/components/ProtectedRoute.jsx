@@ -1,16 +1,16 @@
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import api from "../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 
-
 function ProtectedRoute({ children }) {
     const [isAuthorized, setIsAuthorized] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        auth().catch(() => setIsAuthorized(false))
-    }, [])
+        auth().catch(() => setIsAuthorized(false));
+    }, []);
 
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
@@ -19,14 +19,28 @@ function ProtectedRoute({ children }) {
                 refresh: refreshToken,
             });
             if (res.status === 200) {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access)
-                setIsAuthorized(true)
+                localStorage.setItem(ACCESS_TOKEN, res.data.access);
+                setIsAuthorized(true);
+                await fetchUserDetails(res.data.access); // Fetch user info after refreshing
             } else {
-                setIsAuthorized(false)
+                setIsAuthorized(false);
             }
         } catch (error) {
             console.log(error);
             setIsAuthorized(false);
+        }
+    };
+
+    const fetchUserDetails = async (token) => {
+        try {
+            const res = await api.get("/api/user-profile/", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUser(res.data);
+        } catch (error) {
+            console.log("Error fetching user details:", error);
         }
     };
 
@@ -44,6 +58,7 @@ function ProtectedRoute({ children }) {
             await refreshToken();
         } else {
             setIsAuthorized(true);
+            await fetchUserDetails(token); // Fetch user info if token is valid
         }
     };
 
@@ -51,7 +66,11 @@ function ProtectedRoute({ children }) {
         return <div>Loading...</div>;
     }
 
-    return isAuthorized ? children : <Navigate to="/login" />;
+    return isAuthorized ? (
+        React.cloneElement(children, { user }) // Pass user as a prop to children
+    ) : (
+        <Navigate to="/login" />
+    );
 }
 
 export default ProtectedRoute;
