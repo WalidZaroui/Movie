@@ -8,12 +8,13 @@ class Genre(models.Model):
         return self.name
 
 class Movie(models.Model):
-    title = models.CharField(max_length=255)  
+    title = models.CharField(max_length=255)
     synopsis = models.TextField()
-    director = models.CharField(max_length=100)  
-    rating = models.FloatField() 
-    release_year = models.IntegerField() 
+    director = models.CharField(max_length=100)
+    rating = models.FloatField()
+    release_year = models.IntegerField()
     genres = models.ManyToManyField(Genre, related_name='movies')  # Many-to-many relationship with Genre
+    image = models.ImageField(upload_to='movies/', blank=True, null=True)  # Image field
 
     def __str__(self):
         return self.title
