@@ -2,9 +2,9 @@ import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import { Box, Typography, Button } from "@mui/material";
-import image1 from "../assets/img/img1.jpg";
-import image2 from "../assets/img/img2.jpg";
-import image3 from "../assets/img/img3.jpg";
+import image1 from "../assets/img/img11.jpg";
+import image2 from "../assets/img/img12.jpg";
+import image3 from "../assets/img/img13.jpg";
 
 function ImageCarousel() {
   return (

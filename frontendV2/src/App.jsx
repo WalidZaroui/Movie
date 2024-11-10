@@ -17,7 +17,7 @@ function RegisterAndLogout() {
 
 function App() {
   return (
-    <div className="bg-black">
+    <div>
       <BrowserRouter>
         <Routes>
           {/* <Route
