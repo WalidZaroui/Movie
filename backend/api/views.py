@@ -4,10 +4,17 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Movie, Genre, History, Wishlist, Favorite
 from .serializers import MovieSerializer, GenreSerializer, WishlistSerializer, FavoriteSerializer, HistorySerializer, UserSerializer
 
-class MovieListView(generics.ListAPIView):
-    queryset = Movie.objects.all()
+# View for listing and creating movies
+class MovieListCreateView(generics.ListCreateAPIView):
+    queryset = Movie.objects.all().order_by('-created_at')
     serializer_class = MovieSerializer
     permission_classes = [AllowAny]
+
+# View for retrieving, updating, and deleting a single movie
+class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    permission_classes = [AllowAny]  # Change to IsAuthenticated if needed
 
 class GenreListView(generics.ListAPIView):
     queryset = Genre.objects.all()
@@ -69,8 +76,8 @@ class UserProfileView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
 
     def get_object(self):
-        # This method returns the user instance of the currently logged-in user.
         return self.request.user
+    
 class AllUsersView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

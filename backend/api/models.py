@@ -15,7 +15,7 @@ class Movie(models.Model):
     release_year = models.IntegerField()
     genres = models.ManyToManyField(Genre, related_name='movies')  # Many-to-many relationship with Genre
     image = models.ImageField(upload_to='movies/', blank=True, null=True)  # Image field
-
+    created_at = models.DateTimeField(auto_now_add=True) 
     def __str__(self):
         return self.title
 

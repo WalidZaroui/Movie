@@ -19,8 +19,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,include
 from api.views import  (
-    MovieListView, GenreListView, WishlistListView, FavoriteListView, HistoryListView,
-    AddToWishlistView, AddToFavoriteView, RemoveFromFavoriteView, CreateUserView,UserProfileView,AllUsersView
+    GenreListView, WishlistListView, FavoriteListView, HistoryListView,
+    AddToWishlistView, AddToFavoriteView, RemoveFromFavoriteView, CreateUserView,UserProfileView,AllUsersView,MovieDetailView,MovieListCreateView
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -32,7 +32,8 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),
     path("api-auth/", include("rest_framework.urls")),
-    path('api/movies/', MovieListView.as_view(), name='movie-list'),
+    path('api/movies/', MovieListCreateView.as_view(), name='movie-list-create'),
+    path('api/movies/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'),
     path('api/genres/', GenreListView.as_view(), name='genre-list'),
     path('api/wishlist/', WishlistListView.as_view(), name='wishlist-list'),
     path('api/favorites/', FavoriteListView.as_view(), name='favorite-list'),
