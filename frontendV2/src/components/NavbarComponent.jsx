@@ -78,7 +78,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            DhiaFlix
+            TekFlix
           </Typography>
 
           <Box
@@ -138,7 +138,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            DhiaFlix
+            TekFlix
           </Typography>
           <Box
             sx={{

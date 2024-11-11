@@ -90,7 +90,7 @@ const MoviePage = () => {
                 <button
                   onClick={() => sortMovies("rating")}
                   className={`px-4 py-2 rounded ${
-                    sortOrder === "rating" ? "bg-blue-500" : "bg-gray-500"
+                    sortOrder === "rating" ? "bg-red-500" : "bg-gray-500"
                   }`}
                 >
                   Sort by Rating
@@ -98,7 +98,7 @@ const MoviePage = () => {
                 <button
                   onClick={() => sortMovies("date")}
                   className={`px-4 py-2 rounded ${
-                    sortOrder === "date" ? "bg-blue-500" : "bg-gray-500"
+                    sortOrder === "date" ? "bg-red-500" : "bg-gray-500"
                   }`}
                 >
                   Sort by Date
@@ -142,7 +142,7 @@ const MoviePage = () => {
                       <button
                         onClick={() => paginate(number)}
                         className={`px-4 py-2 rounded ${
-                          currentPage === number ? "bg-blue-500" : "bg-gray-500"
+                          currentPage === number ? "bg-red-500" : "bg-gray-500"
                         }`}
                       >
                         {number}

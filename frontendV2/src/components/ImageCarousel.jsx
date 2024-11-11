@@ -48,7 +48,7 @@ function ImageCarousel() {
       {/* Fixed welcome message overlay */}
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-start p-8 bg-opacity-0">
         <div className="text-white text-6xl font-bold">
-          <h1 className="mb-4">Welcome to DhiaFlix</h1>
+          <h1 className="mb-4">Welcome to TekFlix</h1>
           <button className="px-4 py-4 bg-red-500 text-4xl text-white rounded hover:bg-red-700">
             Watch Now
           </button>
