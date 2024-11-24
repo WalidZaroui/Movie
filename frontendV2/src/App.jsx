@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import MoviePage from "./pages/MoviePage";
+import ProtectedRoute from "./components/ProtectedRoute"; // Assuming you have this component
+
 function Logout() {
   localStorage.clear();
   return <Navigate to="/login" />;
@@ -20,21 +22,34 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          {/* <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-             <Home />
-            </ProtectedRoute>
-          }
-        />*/}
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Navigate to="/" />} />
-          <Route path="/movies" element={<MoviePage />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRoute>
+                <MoviePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="*" element={<NotFound />}></Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
