@@ -183,7 +183,10 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
+                  <Typography
+                    onClick={() => handleNavigation(setting)}
+                    sx={{ textAlign: "center" }}
+                  >
                     {setting}
                   </Typography>
                 </MenuItem>
