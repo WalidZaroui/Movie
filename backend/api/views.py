@@ -3,7 +3,9 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Movie, Genre, History, Wishlist, Favorite
 from .serializers import MovieSerializer, GenreSerializer, WishlistSerializer, FavoriteSerializer, HistorySerializer, UserSerializer
+import logging
 
+from api import serializers
 # View for listing and creating movies
 class MovieListCreateView(generics.ListCreateAPIView):
     queryset = Movie.objects.all().order_by('-created_at')
@@ -31,7 +33,7 @@ class WishlistListView(generics.ListAPIView):
 class FavoriteListView(generics.ListAPIView):
     serializer_class = FavoriteSerializer
     permission_classes = [IsAuthenticated]
-
+    
     def get_queryset(self):
         return Favorite.objects.filter(user=self.request.user)
 
@@ -50,20 +52,33 @@ class AddToWishlistView(generics.CreateAPIView):
         movie = Movie.objects.get(id=self.kwargs['movie_id'])
         serializer.save(user=self.request.user, movie=movie)
 
+
+
+logger = logging.getLogger(__name__)
+
 class AddToFavoriteView(generics.CreateAPIView):
     serializer_class = FavoriteSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        movie = Movie.objects.get(id=self.kwargs['movie_id'])
-        serializer.save(user=self.request.user, movie=movie)
-
+        movie_id = self.kwargs['movie_id']
+        user = self.request.user
+        try:
+            movie = Movie.objects.get(id=movie_id)
+            # Save the serializer instance with user and movie
+            serializer.save(user=user, movie=movie)
+        except Movie.DoesNotExist:
+            raise serializers.ValidationError({"movie": "Movie not found."})
+        
 class RemoveFromFavoriteView(generics.DestroyAPIView):
     serializer_class = FavoriteSerializer
     permission_classes = [IsAuthenticated]
-
+    lookup_field = 'movie_id'
     def get_queryset(self):
-        return Favorite.objects.filter(user=self.request.user, movie_id=self.kwargs['movie_id'])
+        user = self.request.user
+        movie_id = self.kwargs['movie_id']
+        logger.debug(f"Removing favorite for user: {user}, movie_id: {movie_id}")
+        return Favorite.objects.filter(user=user, movie_id=movie_id)
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()

@@ -115,6 +115,7 @@ const MoviePage = () => {
                     key={movie.id}
                   >
                     <MovieCard
+                      movieId={movie.id}
                       title={movie.title}
                       subheader={`Released: ${movie.release_year}`}
                       image={movie.image || "path/to/default-image.jpg"}

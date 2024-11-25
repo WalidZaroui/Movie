@@ -41,8 +41,9 @@ class WishlistSerializer(serializers.ModelSerializer):
         model = Wishlist
         fields = ['id', 'movie', 'added_at']
 
+
 class FavoriteSerializer(serializers.ModelSerializer):
-    movie = MovieSerializer()
+    movie = MovieSerializer(read_only=True)
 
     class Meta:
         model = Favorite

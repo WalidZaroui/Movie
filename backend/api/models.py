@@ -40,5 +40,8 @@ class Favorite(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'movie')
+
     def __str__(self):
         return f"{self.user.username} - {self.movie.title}"
