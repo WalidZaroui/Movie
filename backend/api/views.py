@@ -49,10 +49,25 @@ class AddToWishlistView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        movie = Movie.objects.get(id=self.kwargs['movie_id'])
-        serializer.save(user=self.request.user, movie=movie)
+        movie_id = self.kwargs['movie_id']
+        user = self.request.user
+        try:
+            movie = Movie.objects.get(id=movie_id)
+            # Save the serializer instance with user and movie
+            serializer.save(user=user, movie=movie)
+        except Movie.DoesNotExist:
+            raise serializers.ValidationError({"movie": "Movie not found."})
 
+class RemoveFromWishlistView(generics.DestroyAPIView):
+    serializer_class = WishlistSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'movie_id'
 
+    def get_queryset(self):
+        user = self.request.user
+        movie_id = self.kwargs['movie_id']
+        logger.debug(f"Removing wishlist item for user: {user}, movie_id: {movie_id}")
+        return Wishlist.objects.filter(user=user, movie_id=movie_id)
 
 logger = logging.getLogger(__name__)
 

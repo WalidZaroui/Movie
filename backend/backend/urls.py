@@ -20,7 +20,9 @@ from django.contrib import admin
 from django.urls import path,include
 from api.views import  (
     GenreListView, WishlistListView, FavoriteListView, HistoryListView,
-    AddToWishlistView, AddToFavoriteView, RemoveFromFavoriteView, CreateUserView,UserProfileView,AllUsersView,MovieDetailView,MovieListCreateView
+    AddToWishlistView, AddToFavoriteView,
+      RemoveFromFavoriteView, CreateUserView,UserProfileView,AllUsersView,
+      MovieDetailView,MovieListCreateView,RemoveFromWishlistView
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -39,6 +41,7 @@ urlpatterns = [
     path('api/favorites/', FavoriteListView.as_view(), name='favorite-list'),
     path('api/history/', HistoryListView.as_view(), name='history-list'),
     path('api/wishlist/<int:movie_id>/add/', AddToWishlistView.as_view(), name='add-to-wishlist'),
+    path('api/wishlist/<int:movie_id>/remove/', RemoveFromWishlistView.as_view(), name='remove-from-wishlist'),  # New path
     path('api/favorites/<int:movie_id>/add/', AddToFavoriteView.as_view(), name='add-to-favorites'),
     path('api/favorites/<int:movie_id>/remove/', RemoveFromFavoriteView.as_view(), name='remove-from-favorites'),
 ]

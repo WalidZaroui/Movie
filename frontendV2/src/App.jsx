@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import FavoritePage from "./pages/FavoritePage";
 import NotFound from "./pages/NotFound";
 import MoviePage from "./pages/MoviePage";
+import WishlistPage from "./pages/WishlistPage";
 import ProtectedRoute from "./components/ProtectedRoute"; // Assuming you have this component
 
 function Logout() {
@@ -31,6 +33,14 @@ function App() {
             }
           />
           <Route
+            path="/Wichlist"
+            element={
+              <ProtectedRoute>
+                <WishlistPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/home"
             element={
               <ProtectedRoute>
@@ -43,6 +53,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/Favorite"
+            element={
+              <ProtectedRoute>
+                <FavoritePage />
               </ProtectedRoute>
             }
           />

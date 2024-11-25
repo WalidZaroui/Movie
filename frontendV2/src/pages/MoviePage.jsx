@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import api from "../api";
 import MovieCard from "../components/MovieCard"; // Adjust the path as needed
 import NavbarComponent from "../components/NavbarComponent";
-
+import { toast,ToastContainer } from "react-toastify"; // ToastContainer imported here
+import "react-toastify/dist/ReactToastify.css";
 import LoadingMovie from "../components/LoadingMovie";
 
 const MoviePage = () => {
@@ -76,6 +77,7 @@ const MoviePage = () => {
       ) : (
         <>
           <NavbarComponent />
+          <ToastContainer  autoClose={1500} /> {/* Toast container for notifications */}
           <div className="p-8">
             {/* Search bar and sort buttons in the same line */}
             <div className="flex justify-between mb-4 items-center">
@@ -128,7 +130,7 @@ const MoviePage = () => {
                   </div>
                 ))
               ) : (
-                <div className="flex justify-center items-center text-white h-96">
+                <div className="flex justify-center items-center text-white h-full">
                   <p>No movies found</p>
                 </div>
               )}
