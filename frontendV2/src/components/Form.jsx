@@ -3,7 +3,7 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import LoadingIndicator from "./LoadingIndicator";
-import backgroundImage from "../assets/background.jpg"; // Import the image
+import backgroundImage from "../assets/img/Background.jpg"; // Import the image
 
 function Form({ route, method }) {
   const [formData, setFormData] = useState({
