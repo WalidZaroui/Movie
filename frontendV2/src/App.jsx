@@ -8,6 +8,10 @@ import NotFound from "./pages/NotFound";
 import MoviePage from "./pages/MoviePage";
 import WishlistPage from "./pages/WishlistPage";
 import ContactPage from './pages/ContactPage'; 
+import HistoryPage from "./pages/HistoryPage";
+import MovieDetail from "./pages/MovieDetail";
+import Watch from "./pages/Watch";
+import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute"; // Assuming you have this component
 
 function Logout() {
@@ -73,6 +77,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/History"
+            element={
+              <ProtectedRoute>
+                <HistoryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/Profile" element={<ProfilePage />} />
+           <Route path="/watch" element={<Watch />} />
+           <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/Logout" element={<Logout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterAndLogout />} />

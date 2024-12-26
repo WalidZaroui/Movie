@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -15,12 +16,32 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
+
+    // EmailJS configuration
+    const serviceID = 'service_1wftt4j';
+    const templateID = 'template_tmaskwj';
+    const userID = 'fuNonveFxNIqbjXY9';
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      to_email: 'zarwi.walid@gmail.com', 
+      subject: formData.subject,
+      message: formData.message
+    };
+
+    emailjs.send(serviceID, templateID, templateParams, userID)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        alert('Message sent successfully!');
+      }, (error) => {
+        console.log('FAILED...', error);
+        alert('Failed to send message. Please try again later.');
+      });
   };
 
   return (
-    <div className="h-screen ">
+    <div className="h-screen">
       <div className="pt-10 md:pt-20">
         <div className="p-4 md:p-8">
           <h1 className="text-white text-center pb-8 font-light text-4xl md:text-5xl lg:text-6xl">Contact Us</h1>

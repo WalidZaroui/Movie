@@ -16,6 +16,7 @@
     "@mui/material": "^6.1.6",
     "@mui/styled-engine-sc": "^6.1.6",
     "axios": "^1.7.7",
+    "emailjs-com": "^3.2.0",
     "flowbite-react": "^0.10.2",
     "jwt-decode": "^4.0.0",
     "pusher-js": "^8.4.0-rc2",

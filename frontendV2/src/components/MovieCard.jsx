@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -8,13 +9,13 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import { grey } from "@mui/material/colors";
-import { toast } from "react-toastify"; // Toast imported but no ToastContainer
-import api from "../api"; // Ensure this is the correct path to your API instance
-
+import { toast } from "react-toastify";
+import api from "../api";
 
 const MovieCard = React.memo(({ movieId, title, image, description }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -87,8 +88,24 @@ const MovieCard = React.memo(({ movieId, title, image, description }) => {
     }
   };
 
+  const handleCardClick = () => {
+    navigate(`/movie/${movieId}`);
+  };
+
   return (
-    <Card sx={{ maxWidth: 345, minHeight: 300, backgroundColor: grey[900] }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        minHeight: 300,
+        backgroundColor: grey[900],
+        cursor: 'pointer',
+        transition: 'transform 0.2s',
+        '&:hover': {
+          transform: 'scale(1.05)',
+        },
+      }}
+      onClick={handleCardClick}
+    >
       <CardMedia
         component="img"
         image={image}
@@ -119,7 +136,10 @@ const MovieCard = React.memo(({ movieId, title, image, description }) => {
       <CardActions disableSpacing sx={{ maxHeight: 40 }}>
         <IconButton
           aria-label="add to favorites"
-          onClick={handleFavoriteClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleFavoriteClick();
+          }}
           sx={{
             color: isFavorite ? "red" : "white",
           }}
@@ -128,7 +148,10 @@ const MovieCard = React.memo(({ movieId, title, image, description }) => {
         </IconButton>
         <IconButton
           aria-label="bookmark"
-          onClick={handleBookmarkClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleBookmarkClick();
+          }}
           sx={{
             color: isBookmarked ? "gold" : "white",
           }}

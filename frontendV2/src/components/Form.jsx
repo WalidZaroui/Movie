@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import LoadingIndicator from "./LoadingIndicator";
 import backgroundImage from "../assets/img/Background.jpg"; // Import the image
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 
 function Form({ route, method }) {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ function Form({ route, method }) {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const name = method === "login" ? "Login" : "Register";
@@ -26,8 +28,11 @@ function Form({ route, method }) {
     }));
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const handleSubmit = async (e) => {
-    alert("API Base URL: " + import.meta.env.VITE_API_URL);
     e.preventDefault();
     setLoading(true);
 
@@ -137,17 +142,25 @@ function Form({ route, method }) {
           onChange={handleChange}
           placeholder="Username"
         />
-        <input
-          className="form-input w-3/4 p-2 mb-4 border bg-black  text-white  rounded border-black hover:border-white"
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.60)", // Semi-transparent black background
-          }}
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
+        <div className="relative w-3/4 mb-4">
+          <input
+            className="form-input w-full p-2 border bg-black text-white rounded border-black hover:border-white pr-10"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.60)", // Semi-transparent black background
+            }}
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+          />
+          <span
+            onClick={togglePasswordVisibility}
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-white cursor-pointer"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
         {loading && <LoadingIndicator />}
         <button
           className="w-3/4 p-2 mt-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-200"
@@ -155,6 +168,23 @@ function Form({ route, method }) {
         >
           {name}
         </button>
+        <div className="mt-4 text-white">
+          {method === "login" ? (
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register" className="text-red-500 hover:underline">
+                Sign Up
+              </Link>
+            </p>
+          ) : (
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="text-red-500 hover:underline">
+                Login
+              </Link>
+            </p>
+          )}
+        </div>
       </form>
     </div>
   );

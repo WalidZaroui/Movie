@@ -22,7 +22,7 @@ from api.views import  (
     GenreListView, WishlistListView, FavoriteListView, HistoryListView,
     AddToWishlistView, AddToFavoriteView,
       RemoveFromFavoriteView, CreateUserView,UserProfileView,AllUsersView,
-      MovieDetailView,MovieListCreateView,RemoveFromWishlistView
+      MovieDetailView,MovieListCreateView,RemoveFromWishlistView,RemoveFromWHistory
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/wishlist/', WishlistListView.as_view(), name='wishlist-list'),
     path('api/favorites/', FavoriteListView.as_view(), name='favorite-list'),
     path('api/history/', HistoryListView.as_view(), name='history-list'),
+    path('api/history/<int:movie_id>/remove/', RemoveFromWHistory.as_view(), name='remove-from-wishlist'),  # New path
     path('api/wishlist/<int:movie_id>/add/', AddToWishlistView.as_view(), name='add-to-wishlist'),
     path('api/wishlist/<int:movie_id>/remove/', RemoveFromWishlistView.as_view(), name='remove-from-wishlist'),  # New path
     path('api/favorites/<int:movie_id>/add/', AddToFavoriteView.as_view(), name='add-to-favorites'),

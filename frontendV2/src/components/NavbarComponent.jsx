@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import { useNavigate } from "react-router-dom";
 
@@ -64,9 +63,9 @@ function ResponsiveAppBar() {
           />
           <Typography
             variant="h6"
+            onClick={() => navigate("/home")}
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             className="text-red-500"
             sx={{
               mr: 2,
@@ -112,7 +111,7 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={() => handleNavigation(page)}>
                   <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                 </MenuItem>
               ))}
